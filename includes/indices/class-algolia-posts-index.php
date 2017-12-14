@@ -297,6 +297,18 @@ final class Algolia_Posts_Index extends Algolia_Index {
 	 * @return array
 	 */
 	protected function get_items( $page, $batch_size ) {
+		$tax_query = array();
+
+		if ( $this->post_type == 'product' ) {
+			$tax_query = array(
+				array(
+					'taxonomy' => 'product_type',
+					'field' => 'slug',
+					'terms' => 'grouped',
+				),
+			);
+		}
+
 		$query = new WP_Query(
 			array(
 				'post_type'           => $this->post_type,
@@ -306,6 +318,7 @@ final class Algolia_Posts_Index extends Algolia_Index {
 				'orderby'             => 'ID',
 				'paged'               => $page,
 				'suppress_filters'    => true,
+				'tax_query'	=> $tax_query
 			)
 		);
 

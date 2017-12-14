@@ -194,20 +194,20 @@ class Algolia_Plugin {
 			$this->indices[] = new Algolia_Posts_Index( $post_type );
 		}
 
-		// Add one terms index per taxonomy.
-		$taxonomies = get_taxonomies();
-		$taxonomies_blacklist = $this->settings->get_taxonomies_blacklist();
-		foreach ( $taxonomies as $taxonomy ) {
-			// Skip blacklisted post types.
-			if ( in_array( $taxonomy, $taxonomies_blacklist, true ) ) {
-				continue;
-			}
+		// // Add one terms index per taxonomy.
+		// $taxonomies = get_taxonomies();
+		// $taxonomies_blacklist = $this->settings->get_taxonomies_blacklist();
+		// foreach ( $taxonomies as $taxonomy ) {
+		// 	// Skip blacklisted post types.
+		// 	if ( in_array( $taxonomy, $taxonomies_blacklist, true ) ) {
+		// 		continue;
+		// 	}
 
-			$this->indices[] = new Algolia_Terms_Index( $taxonomy );
-		}
+		// 	$this->indices[] = new Algolia_Terms_Index( $taxonomy );
+		// }
 
-		// Add the users index.
-		$this->indices[] = new Algolia_Users_Index();
+		// // Add the users index.
+		// $this->indices[] = new Algolia_Users_Index();
 
 		// Allow developers to filter the indices.
 		$this->indices = (array) apply_filters( 'algolia_indices', $this->indices );
